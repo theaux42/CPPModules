@@ -6,7 +6,7 @@
 /*   By: tbabou <tbabou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 10:36:26 by tbabou            #+#    #+#             */
-/*   Updated: 2025/02/02 12:41:35 by tbabou           ###   ########.fr       */
+/*   Updated: 2025/02/03 13:13:59 by tbabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int main(void)
 
     while (1)
     {
-        std::cout << "Enter a command: ";
-        std::cin >> command;
+        std::cout << "Enter a command (ADD, SEARCH or EXIT): ";
+        command = repertory.promptText("> ");
         if (command == "EXIT")
             break;
         else if (command == "ADD")
