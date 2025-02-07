@@ -1,14 +1,23 @@
 COMPILER = c++
 FLAGS = -std=c++98 -Wall -Wextra -Werror
 SRCS = main.cpp
+OBJS = $(SRCS:.cpp=.o)
 OUTPUT = main
 
-all:
-	$(COMPILER) $(FLAGS) $(SRCS) -o $(OUTPUT)
+all: $(OUTPUT)
+
+$(OUTPUT): $(OBJS)
+	$(COMPILER) $(FLAGS) $(OBJS) -o $(OUTPUT)
+
+%.o: %.cpp
+	$(COMPILER) $(FLAGS) -c $< -o $@
 
 clean:
+	rm -f $(OBJS)
+
+fclean: clean
 	rm -f $(OUTPUT)
 
-re: clean all
+re: fclean all
 
-.PHONY: all clean re
+.PHONY: all clean fclean re

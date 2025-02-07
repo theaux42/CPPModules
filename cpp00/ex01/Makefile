@@ -6,24 +6,29 @@
 #    By: tbabou <tbabou@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/02 09:01:20 by tbabou            #+#    #+#              #
-#    Updated: 2025/02/02 10:59:42 by tbabou           ###   ########.fr        #
+#    Updated: 2025/02/07 12:26:56 by tbabou           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 COMPILER = c++
-FLAGS = -Wall -Wextra -Werror -std=c++98
+FLAGS = -Wall -Wextra -Werror -std=c++98 -g3
 NAME = PhoneBook
 SRC = main.cpp Contact.cpp PhoneBook.cpp
+OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
 
-$(NAME): $(SRC)
-	$(COMPILER) $(FLAGS) $(SRC) -o $(NAME)
-	
+$(NAME): $(OBJ)
+	$(COMPILER) $(FLAGS) $(OBJ) -o $(NAME)
+
+%.o: %.cpp
+	$(COMPILER) $(FLAGS) -c $< -o $@
+
 clean:
-	rm -f $(NAME)
-	
+	rm -f $(OBJ)
+
 fclean: clean
+	rm -f $(NAME)
 
 re: fclean all
 
