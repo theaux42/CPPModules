@@ -6,7 +6,7 @@
 /*   By: tbabou <tbabou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 10:39:30 by tbabou            #+#    #+#             */
-/*   Updated: 2025/02/05 09:40:58 by tbabou           ###   ########.fr       */
+/*   Updated: 2025/02/07 12:17:34 by tbabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 PhoneBook::PhoneBook(void)
 {
     this->current_contact = 0;
+    this->max_contact = 8;
     this->contact_count = 0;
 }
 
@@ -107,4 +108,6 @@ void PhoneBook::SearchUser(void)
         this->contact_list[searched - 1].showFullContact(searched);
         return ;
     }
+    else
+        std::cout << "This contact seems empty." << std::endl;
 }

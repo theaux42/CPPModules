@@ -6,7 +6,7 @@
 /*   By: tbabou <tbabou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 10:34:41 by tbabou            #+#    #+#             */
-/*   Updated: 2025/02/05 09:24:07 by tbabou           ###   ########.fr       */
+/*   Updated: 2025/02/07 12:14:16 by tbabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,17 @@ Contact::~Contact()
 
 std::string truncateString(const std::string &str)
 {
-    int i = 0;
-    
-    if (str.length() == 10)
-        return str;
     if (str.length() > 10)
         return str.substr(0, 9) + ".";
-    if (str.length() < 10)
+    else
     {
-        while (i < 10 - (int)str.length())
+        std::string truncated = str;
+        while (truncated.length() < 10)
         {
-            std::cout << " ";
-            i++;
+            truncated += " ";
         }
+        return truncated;
     }
-    return str;
 }
 
 void Contact::showContact(void)
