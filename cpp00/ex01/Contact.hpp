@@ -6,7 +6,7 @@
 /*   By: tbabou <tbabou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 10:34:53 by tbabou            #+#    #+#             */
-/*   Updated: 2025/02/05 09:24:21 by tbabou           ###   ########.fr       */
+/*   Updated: 2025/03/17 12:51:51 by tbabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CONTACT_HPP
 
 # include <iostream>
+# include <iomanip>
 # include <string>
 
 class Contact

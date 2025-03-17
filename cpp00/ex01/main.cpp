@@ -6,15 +6,12 @@
 /*   By: tbabou <tbabou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 10:36:26 by tbabou            #+#    #+#             */
-/*   Updated: 2025/02/07 00:29:23 by tbabou           ###   ########.fr       */
+/*   Updated: 2025/03/17 13:27:41 by tbabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
 #include "PhoneBook.hpp"
-
-// Currenlty have invalid memory usage when a string is too long
-// and after SEARCH command, it segfaults.
 
 int main(void)
 {
@@ -27,12 +24,26 @@ int main(void)
     {
         std::cout << "Enter a command (ADD, SEARCH or EXIT): ";
         command = repertory.promptText("> ");
+        if (std::cin.eof())
+            break;
         if (command == "EXIT")
             break;
         else if (command == "ADD")
-            repertory.AddUser();
+        {
+            if (repertory.AddUser())
+            {
+                std::cout << "An error occured. Exiting..." << std::endl;
+                break;
+            }
+        }
         else if (command == "SEARCH")
-            repertory.SearchUser();
+        {
+            if (repertory.SearchUser())
+            {
+                std::cout << "An error occured. Exiting..." << std::endl;
+                break;
+            }
+        }
         else
             std::cout << "Invalid command. Please enter ADD, SEARCH or EXIT." << std::endl;
     }

@@ -6,7 +6,7 @@
 /*   By: tbabou <tbabou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 10:34:41 by tbabou            #+#    #+#             */
-/*   Updated: 2025/02/07 12:14:16 by tbabou           ###   ########.fr       */
+/*   Updated: 2025/03/17 13:29:47 by tbabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,14 @@ std::string truncateString(const std::string &str)
 {
     if (str.length() > 10)
         return str.substr(0, 9) + ".";
-    else
-    {
-        std::string truncated = str;
-        while (truncated.length() < 10)
-        {
-            truncated += " ";
-        }
-        return truncated;
-    }
+    return str;
 }
 
 void Contact::showContact(void)
 {
-    std::cout << truncateString(this->firstname) << "|";
-    std::cout << truncateString(this->lastname) << "|";
-    std::cout << truncateString(this->surname) << "|" << std::endl;
+    std::cout  << std::setw(10) << std::right << truncateString(this->firstname) << "|";
+    std::cout  << std::setw(10) << std::right << truncateString(this->lastname) << "|";
+    std::cout  << std::setw(10) << std::right << truncateString(this->surname) << "|" << std::endl;
 }
 
 void Contact::showFullContact(int index)
