@@ -6,7 +6,7 @@
 /*   By: tbabou <tbabou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 17:08:20 by tbabou            #+#    #+#             */
-/*   Updated: 2025/07/23 17:54:03 by tbabou           ###   ########.fr       */
+/*   Updated: 2025/05/22 18:01:34 by tbabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <iostream>
 
 class Bureaucrat {
-
+	
 	public:
 		Bureaucrat();
 		Bureaucrat(const std::string &name, int grade);

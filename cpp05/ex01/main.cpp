@@ -6,11 +6,12 @@
 /*   By: tbabou <tbabou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 17:26:06 by tbabou            #+#    #+#             */
-/*   Updated: 2025/07/23 15:33:42 by tbabou           ###   ########.fr       */
+/*   Updated: 2025/07/23 17:51:28 by tbabou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 int main(void)
 {
