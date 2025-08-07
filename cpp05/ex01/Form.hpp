@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Form.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbabou <tbabou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: theaux <theaux@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 07:16:16 by tbabou            #+#    #+#             */
-/*   Updated: 2025/07/23 20:26:42 by tbabou           ###   ########.fr       */
+/*   Updated: 2025/07/25 14:01:13 by theaux           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@
 #include <iostream>
 #include <string>
 
+class Bureaucrat; // Forward declaration
+
 class Form
 {
     private:
         std::string const _name;
-        bool              _isSigned = false;
+        bool              _isSigned;
         int const         _signGrade,
                           _executeGrade;
 
@@ -32,12 +34,11 @@ class Form
         ~Form();
 
         const std::string&  getName() const;
-        const int           getSignGrade() const,
-                            getExecuteGrade() const;
+        int                 getSignGrade() const;
+        int                 getExecuteGrade() const;
         bool                getSigned() const;
+        void                beSigned(const Bureaucrat &bureaucrat);
 
-
-    // Assignment Operator
         Form &operator=(const Form &other);
 
     	class GradeTooHighException : public std::exception {
@@ -58,7 +59,7 @@ class Form
 inline std::ostream& operator<<(std::ostream &out, const Form &form) {
 	out << "Form named '" << form.getName() << "' require level " << form.getSignGrade()
      << " to sign and level "<< form.getExecuteGrade() <<" to execute. the form is currently "
-    << form.getSigned() ? "Signed" : "Not signed";
+    << (form.getSigned() ? "Signed" : "Not signed");
 	return out;
 }
 

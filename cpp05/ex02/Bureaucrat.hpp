@@ -6,7 +6,7 @@
 /*   By: theaux <theaux@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 17:08:20 by tbabou            #+#    #+#             */
-/*   Updated: 2025/07/25 13:51:04 by theaux           ###   ########.fr       */
+/*   Updated: 2025/08/07 17:29:30 by theaux           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 # include <iostream>
 # include <string>
-# include "Form.hpp"
+# include "AForm.hpp"
+
+class AForm; // Forward declaration
 
 class Bureaucrat {
 
@@ -28,7 +30,8 @@ class Bureaucrat {
 
 		const std::string&	getName() const;
 		int					getGrade() const;
-		void 				signForm(Form &form);
+		void 				signForm(AForm &form);
+		void				executeForm(const AForm &form) const;
 
 		class GradeTooHighException : public std::exception {
 			public:

@@ -6,7 +6,7 @@
 /*   By: theaux <theaux@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 17:22:08 by tbabou            #+#    #+#             */
-/*   Updated: 2025/07/25 13:50:25 by theaux           ###   ########.fr       */
+/*   Updated: 2025/08/07 17:29:30 by theaux           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,22 @@ void Bureaucrat::decrementGrade() {
 	this->_grade++;
 }
 
-void Bureaucrat::signForm(Form &form) {
+void Bureaucrat::signForm(AForm &form) {
 	try {
 		form.beSigned(*this);
 		std::cout << this->getName() << " signs " << form.getName() << std::endl;
 	} catch (const std::exception &e) {
 		std::cout << this->getName() << " cannot sign " << form.getName()
+				  << " because " << e.what() << std::endl;
+	}
+}
+
+void Bureaucrat::executeForm(const AForm &form) const {
+	try {
+		form.execute(*this);
+		std::cout << this->getName() << " executed " << form.getName() << std::endl;
+	} catch (const std::exception &e) {
+		std::cout << this->getName() << " cannot execute " << form.getName()
 				  << " because " << e.what() << std::endl;
 	}
 }
