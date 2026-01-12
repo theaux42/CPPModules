@@ -1,61 +1,46 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Form.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theaux <theaux@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/23 07:18:35 by tbabou            #+#    #+#             */
-/*   Updated: 2025/07/25 14:12:27 by theaux           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Form.hpp"
 #include "Bureaucrat.hpp"
 
-Form::Form() : _name("Default Form"), _isSigned(false), _signGrade(150), _executeGrade(150) {}
-
-Form::Form(const std::string &name, int signGrade, int executeGrade)
-    : _name(name), _isSigned(false), _signGrade(signGrade), _executeGrade(executeGrade) {
-    if (signGrade < 1 || executeGrade < 1)
-        throw GradeTooHighException();
-    if (signGrade > 150 || executeGrade > 150)
-        throw GradeTooLowException();
-}
-
-Form::Form(const Form &other)
-    : _name(other._name), _isSigned(other._isSigned),
-      _signGrade(other._signGrade), _executeGrade(other._executeGrade) {}
-
-Form::~Form() {}
-
-Form &Form::operator=(const Form &other) {
-    if (this != &other) {
-        // _name is const, so we cannot assign it
-        _isSigned = other._isSigned;
-        // _signGrade and _executeGrade are also const, so we cannot assign them
+Form &Form::operator=(const Form &rhs)
+{
+    if (this != &rhs)
+    {
+        this->_isSigned = rhs._isSigned;
+        // _name, _signLevel, and _executeLevel are assumed to be const or only set in the constructor
     }
     return *this;
 }
 
-int Form::getExecuteGrade(void) const {
-    return this->_executeGrade;
-}
-
-int Form::getSignGrade(void) const {
-    return this->_signGrade;
-}
-
-const std::string&   Form::getName() const {
-    return this->_name;
-}
-
-bool    Form::getSigned(void) const {
-    return this->_isSigned;
-}
-
-void Form::beSigned(const Bureaucrat &bureaucrat) {
-    if (bureaucrat.getGrade() > this->_signGrade)
+Form::Form(const std::string name, const int executeLevel, const int signLevel)
+    : _name(name), _isSigned(false), _executeLevel(executeLevel), _signLevel(signLevel)
+{
+    if (executeLevel < 1 || signLevel < 1)
+        throw Form::GradeTooHighException();
+    if (executeLevel > 150 || signLevel > 150)
         throw Form::GradeTooLowException();
-    this->_isSigned = true;
+}
+
+void Form::beSigned(const Bureaucrat &signer)
+{
+    if (this->_isSigned)
+        throw Form::AlreadySignedExeception();
+
+    if (signer.getGrade() > this->_signLevel)
+        throw Form::GradeTooLowException();
+    else
+    {
+        std::cout << signer.getName() << " signed " << this->_name << std::endl;
+        this->_isSigned = true;
+    }
+}
+
+std::ostream &operator<<(std::ostream &os, const Form &form)
+{
+    os << "The form \"" << form.getName() << "\" require level " << form.getSignLevel() << " to be signed,\n";
+    os << "require level " << form.getExecuteLevel() << " to be executed and ";
+    if (form.getSignStatus()) 
+        os << "got signed";
+    else
+        os << "is not signed";
+    return os;
 }

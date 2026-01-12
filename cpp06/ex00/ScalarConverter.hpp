@@ -1,33 +1,36 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ScalarConverter.hpp                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tbabou <tbabou@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/27 15:22:43 by tbabou            #+#    #+#             */
-/*   Updated: 2025/08/27 15:51:46 by tbabou           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef SCALARCONVERTER_HPP
 # define SCALARCONVERTER_HPP
 
-#include <string>
 #include <iostream>
-#include <cstdlib>
+#include <sstream>
+#include <iomanip>
 #include <climits>
-#include <cmath>
 
-class ScalarConverter
+# define IMPOSSIBLE_INPUT "Error: This input cannot be converted!"
+# define WRONG_USAGE "Error: Wrong usage: ./ScalarConverter <value>"
+
+enum Input_Type
 {
-    public:
-        static void convert(const char *literal);
+    NONE,
+    PLUS_PL,
+    MINUS_PL,
+    NAN_PL,
+    CHAR,
+    INT,
+    FLOAT,
+    DOUBLE,
+};
+
+
+class ScalarConverter 
+{
     private:
-        ScalarConverter();
-        ScalarConverter(ScalarConverter const & src);
-        ~ScalarConverter();
-        ScalarConverter & operator=(ScalarConverter const & rhs);
+	~ScalarConverter(void) {};
+        ScalarConverter(void) {};
+        ScalarConverter(const ScalarConverter &src) {*this = src;};
+        ScalarConverter &operator=(const ScalarConverter &rhs) {(void)rhs; return *this;};
+    public:
+        static int convert(std::string str);
 };
 
 #endif

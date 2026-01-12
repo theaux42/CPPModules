@@ -1,81 +1,63 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   AForm.hpp                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theaux <theaux@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/23 07:16:16 by tbabou            #+#    #+#             */
-/*   Updated: 2025/08/07 17:29:30 by theaux           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef AFORM_HPP
-#define AFORM_HPP
+# define AFORM_HPP
 
 #include <iostream>
-#include <string>
 
-class Bureaucrat; // Forward declaration
+class Bureaucrat;
 
-class AForm
-{
+class AForm {
     private:
-        std::string const _name;
-        bool              _isSigned;
-        int const         _signGrade,
-                          _executeGrade;
-
+        const std::string   _name;
+        bool                _isSigned;
+        const unsigned int  _executeLevel;
+        const unsigned int  _signLevel;
+        
     protected:
-        // Protected constructors to make class abstract
-        AForm();
-        AForm(const std::string &name, int signGrade, int executeGrade);
-        AForm(const AForm &other);
-
+        AForm(const std::string name, const int executeLevel, const int signLevel);
+        AForm() : _name("Contract"), _isSigned(false), _executeLevel(150), _signLevel(150) {};
+        virtual void        action(Bureaucrat const & executor) const = 0;
+        
     public:
-        // Constructors and Destructor
-        virtual ~AForm();
+        AForm(const AForm &src) : _name(src._name), _isSigned(src._isSigned), _executeLevel(src._executeLevel), _signLevel(src._signLevel) {};
+        AForm &operator=(const AForm &rhs);
+        ~AForm() {};
+        
+        const std::string   getName(void) const {return this->_name;};
+        bool                getSignStatus(void) const {return this->_isSigned;};
+        int                 getExecuteLevel(void) const {return this->_executeLevel;};
+        int                 getSignLevel(void) const {return this->_signLevel;};
+        
+        void                beSigned(const Bureaucrat &signer);
+        void                execute(const Bureaucrat& executor) const;
+        
 
-        // Getters
-        const std::string&  getName() const;
-        int                 getSignGrade() const;
-        int                 getExecuteGrade() const;
-        bool                getSigned() const;
-
-        // Member functions
-        void                beSigned(const Bureaucrat &bureaucrat);
-        virtual void        execute(const Bureaucrat &executor) const = 0; // Pure virtual function
-
-        // Assignment operator
-        AForm &operator=(const AForm &other);
-
-        // Exception classes
         class GradeTooHighException : public std::exception {
-            public:
-                const char* what() const throw() {
-                    return "\033[0;31m Grade is too high!\033[0m";
-                }
+            const char * what() const throw() {
+                return "The Grade is too high.";
+            }
         };
+
         class GradeTooLowException : public std::exception {
-            public:
-                const char* what() const throw() {
-                    return "\033[0;31m Grade is too low!\033[0m";
-                }
+            const char * what() const throw() {
+                return "The Grade is too low.";
+            }
         };
-        class FormNotSignedException : public std::exception {
-            public:
-                const char* what() const throw() {
-                    return "\033[0;31m Form is not signed!\033[0m";
-                }
+
+        class AlreadySignedExeception : public std::exception {
+            const char * what() const throw() {
+                return "The form is already signed";
+            }
         };
+
+        class NotSignedException : public std::exception {
+            const char * what() const throw() {
+                return "The form cannot be executed since it's not signed.";
+            }
+        };
+
 
 };
 
-inline std::ostream& operator<<(std::ostream &out, const AForm &form) {
-	out << "Form named '" << form.getName() << "' require level " << form.getSignGrade()
-     << " to sign and level "<< form.getExecuteGrade() <<" to execute. the form is currently "
-    << (form.getSigned() ? "Signed" : "Not signed");
-	return out;
-}
+std::ostream &operator<<(std::ostream &os, const AForm &form);
 
 #endif

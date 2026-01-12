@@ -1,62 +1,42 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: theaux <theaux@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/22 17:08:20 by tbabou            #+#    #+#             */
-/*   Updated: 2025/07/25 13:51:04 by theaux           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef BUREAUCRAT_HPP
 # define BUREAUCRAT_HPP
 
-# include <iostream>
-# include <string>
-# include "Form.hpp"
+#include <iostream>
+#include "Form.hpp"
 
-class Bureaucrat {
+class Bureaucrat 
+{
+    private:
+        const std::string   _name;
+        unsigned int        _grade;
+    public:
+        Bureaucrat() : _name("George"), _grade(150) {};
+        Bureaucrat(const Bureaucrat &src) : _name(src._name), _grade(src._grade) {};
+        Bureaucrat &operator=(const Bureaucrat &rhs);
+        ~Bureaucrat() {};
+        Bureaucrat(const std::string name, unsigned int grade);
 
-	public:
-		Bureaucrat();
-		Bureaucrat(const std::string &name, int grade);
-		Bureaucrat(const Bureaucrat &other);
-		~Bureaucrat();
-		Bureaucrat&	operator=(const Bureaucrat &other);
+        void                increaseGrade(void);
+        void                decreaseGrade(void);
+        void                signForm(Form &form);
 
-		const std::string&	getName() const;
-		int					getGrade() const;
-		void 				signForm(Form &form);
+        const std::string   getName(void) const { return this->_name; };
+        unsigned int        getGrade(void) const { return this->_grade; };
 
-		class GradeTooHighException : public std::exception {
-			public:
-				const char* what() const throw() {
-					return "\033[0;31m Grade is too high!\033[0m";
-				}
-		};
-		class GradeTooLowException : public std::exception {
-			public:
-				const char* what() const throw() {
-					return "\033[0;31m Grade is too low!\033[0m";
-				}
-		};
+        class TooHighException : public std::exception {
+            const char* what() const throw() {
+                return "The grade is too high.";
+            }
+        };
 
-		void	incrementGrade();
-		void	decrementGrade();
-
-	private:
-		std::string _name;
-		static const int _minGrade = 1,
-						 _maxGrade = 150;
-		int _grade;
-
+        class TooLowException : public std::exception {
+            public:
+            const char* what() const throw() {
+                return "The grade is too low";
+            }
+        };
 };
 
-inline std::ostream& operator<<(std::ostream &out, const Bureaucrat &bureaucrat) {
-	out << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade();
-	return out;
-}
+std::ostream& operator<<(std::ostream& os, const Bureaucrat& meow);
 
-# endif
+#endif
