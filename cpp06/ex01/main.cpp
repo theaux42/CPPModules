@@ -12,13 +12,13 @@ void    print_data(Data data)
 int main(void)
 {
     Data    original_data = {"Hello", "World", 4242, true};
-    Data    recovered_data;
+    Data    *recovered_data;
     uintptr_t temp = 0x0;
 
     print_data(original_data);
     temp = Serializer::serialize(&original_data);
-    recovered_data = *(Serializer::deserialize(temp));
-    print_data(recovered_data);
+    recovered_data = Serializer::deserialize(temp);
+    print_data(*recovered_data);
 
     return (0);
 
