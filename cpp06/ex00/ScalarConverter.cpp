@@ -26,6 +26,8 @@ static void convertChar(std::string str, Input_Type type)
 static void convertInt(std::string str, int isPseudo)
 {
     if (isPseudo >= PLUS_PL && isPseudo <= NAN_PL) std::cout << "int: impossible" << std::endl;
+    else if (isPseudo == CHAR)
+        std::cout << "int: " << std::setprecision(1) << std::fixed << static_cast<int>(str[0]) << std::endl;
     else
     {
         long int value;
@@ -35,7 +37,7 @@ static void convertInt(std::string str, int isPseudo)
         if (number_stream.fail())
             std::cout << "int: impossible" << std::endl;
         else
-            std::cout << "int: " << std::setprecision(1) << std::fixed << value << std::endl;
+            std::cout << "int: " << std::setprecision(1) << std::fixed << static_cast<int>(value) << std::endl;
     }
 }
 
@@ -44,6 +46,8 @@ static void convertDouble(std::string str, int isPseudo)
     if (isPseudo == PLUS_PL) std::cout << "double: +inf" << std::endl;
     else if (isPseudo == MINUS_PL) std::cout << "double: -inf" << std::endl;
     else if (isPseudo == NAN_PL) std::cout << "double: nan" << std::endl;
+    else if (isPseudo == CHAR)
+        std::cout << "double: " << std::setprecision(1) << std::fixed << static_cast<double>(str[0]) << std::endl;
     else
     {
         double value;
@@ -53,7 +57,7 @@ static void convertDouble(std::string str, int isPseudo)
         if (number_stream.fail())
             std::cout << "double: impossible" << std::endl;
         else
-            std::cout << "double: " << std::setprecision(1) << std::fixed << value << std::endl;
+            std::cout << "double: " << std::setprecision(1) << std::fixed << static_cast<double>(value) << std::endl;
     }
 }
 
@@ -62,6 +66,8 @@ static void convertFloat(std::string str, int isPseudo)
     if (isPseudo == PLUS_PL) std::cout << "float: +inff" << std::endl;
     else if (isPseudo == MINUS_PL) std::cout << "float: -inff" << std::endl;
     else if (isPseudo == NAN_PL) std::cout << "float: nanf" << std::endl;
+    else if (isPseudo == CHAR)
+        std::cout << "float: " << std::setprecision(1) << std::fixed << static_cast<float>(str[0]) << "f" << std::endl;
     else
     {
         float value;
@@ -71,7 +77,7 @@ static void convertFloat(std::string str, int isPseudo)
         if (number_stream.fail())
             std::cout << "float: impossible" << std::endl;
         else
-            std::cout << "float: " << std::setprecision(1) << std::fixed << value << "f" << std::endl;
+            std::cout << "float: " << std::setprecision(1) << std::fixed << static_cast<float>(value) << "f" << std::endl;
     }
 }
 
