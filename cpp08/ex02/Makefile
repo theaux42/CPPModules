@@ -1,8 +1,8 @@
 COMPILER = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
-SRCS = main.cpp 
+SRCS = main.cpp MutantStack.cpp
 OBJS = $(SRCS:.cpp=.o)
-NAME = easyfind
+NAME = MutantStack 
 
 all: $(NAME)
 $(NAME): $(OBJS)
